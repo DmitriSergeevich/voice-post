@@ -13,12 +13,12 @@ const Table = ({ currentMsgs }) => {
           <thead>
             <tr>
               {tableHeaders.map((e) => (
-                <th scope="col">{e}</th>
+                <th key={e} scope="col">{e}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {currentMsgs.map((e, i) => {
+            {currentMsgs.map((e) => {
               return (
                 <tr key={e.Date[0]._}>
                   <td>{moment(e.Received[0]).utc().format("DD.MM HH:mm")}</td>

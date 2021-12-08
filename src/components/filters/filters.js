@@ -49,7 +49,7 @@ export const FiltersSection = ({
             }}
           >
             {dateFilterValues.map((date, i) => (
-              <option value={i}>{date[0]}</option>
+              <option key={date[0]} value={i}>{date[0]}</option>
             ))}
           </select>
         </div>
@@ -83,7 +83,7 @@ export const FiltersSection = ({
             }}
           >
             {durationFilterValues.map((e) => (
-              <option value={e[0]}>{e[1]}</option>
+              <option key={e[0]} value={e[0]}>{e[1]}</option>
             ))}
           </select>
         </div>

@@ -16,7 +16,7 @@ export class AudioPlayer extends React.Component {
     isPlay: true,
     isLoading: false,
   };
-
+  voiceURL = `audio/${Math.round(1 - 0.5 + Math.random() * (30 - 1 + 1))}.ogg`
   draggableClasses = ["pin"];
   currentlyDragged = null;
 
@@ -137,8 +137,17 @@ export class AudioPlayer extends React.Component {
             </div>
             <span className="total-time">{this.state.totalTime}</span>
           </div>
-          <audio crossOrigin="true" preload="none"  ref={this.player}>
-          <source src={`audio/${Math.round(1 - 0.5 + Math.random() * (30 - 1 + 1))}.ogg`} type="audio/ogg" />
+          <div className='audio-download-button'>
+            
+            <a href={this.voiceURL} download="voice" target="_blank" rel="noreferrer">
+            <svg width="20px" height="20px" viewBox="0 0 16 16" version="1.1">
+              <path fill="#68a0f5bd" d="M0 14h16v2h-16v-2z"></path>
+              <path fill="#68a0f5bd" d="M8 13l5-5h-3v-8h-4v8h-3z"></path>
+            </svg>
+            </a>
+          </div>
+          <audio crossOrigin="true" preload="none" ref={this.player}>
+            <source src={this.voiceURL} type="audio/ogg" />
             Your browser does not support the
             <code>audio</code> element.
           </audio>
