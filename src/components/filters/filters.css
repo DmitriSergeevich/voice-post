@@ -1,0 +1,25 @@
+.filters {
+  display: flex;
+}
+.filters-col {
+  width: 213px;
+  margin-right: 21px;
+}
+.filters-clear {
+  display: flex;
+}
+
+.filters-clear-btn {
+  width: 100%;
+  border-radius: 5px;
+  border: dashed 2px #68a0f5bd;
+  color: #68a0f5bd;
+  font-weight: 500;
+  font-size: 18px;
+  align-self: flex-end;
+  padding: 4px 0;
+}
+.filters-clear-btn:hover {
+  border: dashed 2px var(--bs-primary);
+  color: var(--bs-primary);
+}
