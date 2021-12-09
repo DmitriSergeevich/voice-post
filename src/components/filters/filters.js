@@ -1,7 +1,7 @@
 import "./filters.css";
 import moment from "moment";
 import { debounce } from "../../utils/debounce";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const dateFilterValues = [
   ["за все время"],
@@ -20,17 +20,17 @@ const durationFilterValues = [
   [10, "до 10 минут"],
 ];
 
-export const FiltersSection = ({
-  dateFilter,
-  nameFilter,
-  durationFilter,
-  setDateFilter,
-  setNameFilter,
-  setDurationFilter,
-}) => {
-  const [inputName, setInputName] = useState('')
+const FiltersSection = ({ setFiltredMsgs, msgs }) => {
+  const [nameFilter, setNameFilter] = useState("");
+  const [durationFilter, setDurationFilter] = useState(0);
+  const [dateFilter, setDateFilter] = useState(0);
+  const [inputName, setInputName] = useState("");
 
-  const inputDebounce = debounce(setNameFilter)
+  const inputDebounce = debounce(setNameFilter);
+
+  useEffect(() => {
+    setFiltredMsgs(filter(msgs, nameFilter, durationFilter, dateFilter));
+  }, [setFiltredMsgs, msgs, nameFilter, durationFilter, dateFilter]);
 
   return (
     <section className="container mb-35">
@@ -49,7 +49,9 @@ export const FiltersSection = ({
             }}
           >
             {dateFilterValues.map((date, i) => (
-              <option key={date[0]} value={i}>{date[0]}</option>
+              <option key={date[0]} value={i}>
+                {date[0]}
+              </option>
             ))}
           </select>
         </div>
@@ -63,9 +65,8 @@ export const FiltersSection = ({
             className="form-control"
             value={inputName}
             onInput={(e) => {
-              setInputName(e.target.value)
-              inputDebounce(e.target.value)
-              //setNameFilter(e.target.value);
+              setInputName(e.target.value);
+              inputDebounce(e.target.value);
             }}
           />
         </div>
@@ -78,12 +79,14 @@ export const FiltersSection = ({
             id="duration"
             className="form-select"
             aria-label="duration"
-            onChange={(e) => {  
+            onChange={(e) => {
               setDurationFilter(e.target.value);
             }}
           >
             {durationFilterValues.map((e) => (
-              <option key={e[0]} value={e[0]}>{e[1]}</option>
+              <option key={e[0]} value={e[0]}>
+                {e[1]}
+              </option>
             ))}
           </select>
         </div>
@@ -95,6 +98,7 @@ export const FiltersSection = ({
               setNameFilter("");
               setDurationFilter(0);
               setDateFilter(0);
+              setInputName("");
             }}
           >
             Сбросить фильтр
@@ -105,7 +109,9 @@ export const FiltersSection = ({
   );
 };
 
-export const filter = (arr, name, duration, dateInterval) => {
+export default FiltersSection;
+
+const filter = (arr, name, duration, dateInterval) => {
   if (!name && !duration && !dateInterval) {
     return arr;
   }
